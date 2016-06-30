@@ -1,20 +1,9 @@
 import { Component } from '@angular/core';
 
-const detailTemplate = `
-  <div *ngIf="selectedHero">
-    <h1>{{ title }}</h1>
-    <h2>{{ selectedHero.name }} details!</h2>
-    <div><label>id: </label>{{ selectedHero.id }}</div>
-    <div>
-      <label>name: </label>
-      <input
-        [(ngModel)]="selectedHero.name"
-        placeholder="name"
-      >
-    </div>
-  </div>
-`;
-const heroesTemplate = `
+import { HeroDetailComponent } from './hero-detail.component';
+import { Hero } from './hero';
+
+const template = `
   <h2>My Heroes</h2>
   <ul class="heroes">
     <li 
@@ -25,6 +14,7 @@ const heroesTemplate = `
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li>
   </ul>
+  <my-hero-detail [hero]="selectedHero"></my-hero-detail>
 `;
 const styles = [`
     .selected {
@@ -76,18 +66,13 @@ const styles = [`
   }
 `];
 
-export class Hero {
-  id: number;
-  name: string;
-}
 
 @Component({
   selector: 'my-app',
-  template: heroesTemplate + detailTemplate,
-  styles: styles
-})
-
-export class AppComponent {
+  template: template,
+  styles: styles,
+  directives: [HeroDetailComponent]
+}) export class AppComponent {
   title = 'Tour of Heroes';
   public heroes = HEROES;
   selectedHero: Hero;
