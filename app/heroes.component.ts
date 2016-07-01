@@ -6,16 +6,18 @@ import { HeroService } from './hero.service';
 import { Hero } from './hero';
 
 @Component({
-  selector: 'my-heroes',
+  selector:    'my-heroes',
   templateUrl: 'app/heroes.component.html',
-  styleUrls: ['app/heroes.component.css'],
-  directives: [HeroDetailComponent],
-  providers: []
+  styleUrls:   ['app/heroes.component.css'],
+  directives:  [HeroDetailComponent],
+  providers:   []
 }) 
 
 export class HeroesComponent implements OnInit {
-  selectedHero: Hero;
+  selectedHero: Hero; // TODO do these values default to private?
+  addingHero: Boolean = false;
   heroes: Hero[];
+  error: any;:
 
   constructor(
     private heroService: HeroService,
@@ -34,6 +36,29 @@ export class HeroesComponent implements OnInit {
 
   onSelect(hero: Hero) {
     this.selectedHero = hero;
+  }
+
+  addHero() {
+    this.addingHero = true;
+    this.selectHero = null;
+  }
+
+  close(savedHero: Hero = null) {
+    this.addingHero = false;
+    if (savedHero)
+      this.getHeroes();
+  }
+
+  deleteHero(hero: Hero, event: any) {
+    event.stopPropagation();
+    this.heroService
+      .deleteHero(hero)
+      .then(res => {
+        this.heroes = this.heroes.filter(h => hero !== h);
+        if (this.selectedHero === hero)
+          this.selectedHero = null;
+      })
+      .catch(e => this.error = e);
   }
 
   gotoDetail() {
