@@ -11,19 +11,19 @@ import { Hero } from './hero';
   styleUrls:   ['app/heroes.component.css'],
   directives:  [HeroDetailComponent],
   providers:   []
-}) 
+})
 
 export class HeroesComponent implements OnInit {
   selectedHero: Hero; // TODO do these values default to private?
   addingHero: Boolean = false;
   heroes: Hero[];
-  error: any;:
+  error: any;
 
   constructor(
     private heroService: HeroService,
     private router: Router
   ) { }
-  
+
   ngOnInit() {
     this.getHeroes();
   }
@@ -40,7 +40,7 @@ export class HeroesComponent implements OnInit {
 
   addHero() {
     this.addingHero = true;
-    this.selectHero = null;
+    this.selectedHero = null;
   }
 
   close(savedHero: Hero = null) {

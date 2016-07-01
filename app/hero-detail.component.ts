@@ -5,9 +5,9 @@ import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
 @Component({
-  selector: 'my-hero-detail',
+  selector:    'my-hero-detail',
   templateUrl: 'app/hero-detail.component.html',
-  styleUrls: ['app/hero-detail.component.css']
+  styleUrls:   ['app/hero-detail.component.css']
 })
 
 export class HeroDetailComponent implements OnInit, OnDestroy {
@@ -15,7 +15,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter();
   error: any;
   sub: any;
-  navigated: Boolean = false;
+  navigated: boolean = false;
 
   constructor(
     private heroService: HeroService,
@@ -47,7 +47,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
         this.hero = hero;
         this.goBack(hero);
       })
-      .catch(err => this.error = err); 
+      .catch(err => this.error = err);
   }
 
   goBack(savedHero: Hero = null) {
